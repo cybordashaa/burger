@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import  appStyles from './app.module.css';
 import Toolbar from '../../components/ToolBar';
 import { BurgerBuilder} from '../../pages/BurgerBuilder';
 
@@ -8,7 +8,9 @@ function App() {
     <div className="App">
 
       <Toolbar/>
+      <main className={appStyles.Content}>
       <BurgerBuilder/>
+      </main>
     </div>
   );
 }
