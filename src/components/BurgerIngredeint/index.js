@@ -3,7 +3,7 @@ import css from './style.module.css';
 
 // eh componentees props oor ugugdul damjuulj awna
 const BurgerIngredient = props => {
-    if(props.type ==='bread-top') return(
+    if (props.type === 'bread-top') return (
         <div className={css.BreadTop}>
             <div className={css.Seed}>
             </div>
@@ -12,20 +12,20 @@ const BurgerIngredient = props => {
             <div className={`${css.Seed} ${css.Fourth}`}></div>
 
         </div>
-        
+
     );
 
-if(props.type === 'salad') return <div className={css.Salad}>{props.type}</div>;
-if(props.type === 'bacon') return <div className={css.Bacon}>{props.type}</div>;  
+    if (props.type === 'salad') return <div className={css.Salad}></div>;
+    if (props.type === 'bacon') return <div className={css.Bacon}></div>;
 
-if(props.type === 'meat') return <div className={css.Meat}>{props.type}</div>;  
-if(props.type === 'cheese') return <div className={css.Cheese}>{props.type}</div>;  
-if(props.type === 'bread-bottom') return <div className={css.BreadBottom}>{props.type}</div>;  
+    if (props.type === 'meat') return <div className={css.Meat}></div>;
+    if (props.type === 'cheese') return <div className={css.Cheese}></div>;
+    if (props.type === 'bread-bottom') return <div className={css.BreadBottom}></div>;
 
 
-return <div>...</div>;    
+    return <div>...</div>;
 
 
 };
 
-export  default BurgerIngredient;
+export default BurgerIngredient;
