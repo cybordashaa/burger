@@ -27,7 +27,7 @@ const Burger = (props) => {
             {content}
             <BurgerIngredient type="bread-bottom" />
         </div>
-    );
+    )
 };
 
 export default Burger;
