@@ -25,6 +25,10 @@ class BurgerPage extends Component {
         confirmOrder: false
     };
 
+    contunueOrder = () => {
+        console.log('contune');
+
+    }
     ortsNemeh = type => {
         const newIngredients = { ...this.state.ingredients };
         newIngredients[type]++;
@@ -65,6 +69,8 @@ class BurgerPage extends Component {
 
                     show={this.state.confirmOrder}>
                     <OrderSummary
+                        onCancel={this.closeConfirmModal}
+                        onContinue={this.contunueOrder}
                         price={this.state.totalPrice}
                         ingredients={this.state.ingredients}
                         ingredientsNames={INGREDIENT_NAMES}
