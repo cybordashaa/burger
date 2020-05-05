@@ -4,6 +4,7 @@ import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
+import axios from 'axios';
 
 const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
 const INGREDIENT_NAMES = {
@@ -27,7 +28,20 @@ class BurgerBuilder extends Component {
   };
 
   continueOrder = () => {
+    const order = {
+      orts: this.state.ingredients,
+      dun: this.state.totalPrice,
+      hayag: {
+        name: 'Saraa',
+        city: 'Ub',
+        street: '10 r horoolol'
+      }
+
+    };
     console.log("continue daragdlaa...");
+    axios.post('https://burger-74667.firebaseio.com/orders.json', order).then(response => {
+      alert('Amjilttai')
+    });
   };
 
   showConfirmModal = () => {
