@@ -4,8 +4,6 @@ import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
-import axios from '../../axios-orders';
-import Spinner from "../../components/General/Spinner";
 
 const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
 const INGREDIENT_NAMES = {
@@ -15,7 +13,7 @@ const INGREDIENT_NAMES = {
   salad: "Салад"
 };
 
-class BurgerBuilder extends Component {
+class BurgerPage extends Component {
   state = {
     ingredients: {
       salad: 0,
@@ -33,29 +31,31 @@ class BurgerBuilder extends Component {
 
   };
 
-  // continueOrder = () => {
-  //   const order = {
-  //     orts: this.state.ingredients,
-  //     dun: this.state.totalPrice,
-  //     hayag: {
-  //       name: 'Dash',
-  //       city: 'Ub',
-  //       street: '10 r horoolol'
-  //     }
+  continueOrder = () => {
 
-  //   };
-  //   //console.log("continue daragdlaa...");
-  //   this.setState({
-  //     loading: true
-  //   });
-  //   axios.post('/orders.json', order).then(response => {
+    const params = [];
+    for (let orts in this.state.ingredients) {
+      //console.log(orts);
+      params.push(orts + "=" + this.state.ingredients[orts])
+    }
 
-  //   }).finally(() => {
-  //     this.setState({
-  //       loading: false
-  //     })
-  //   });
-  // };
+    params.push('dun=' + this.state.totalPrice);
+
+    //const query = params.join("&");
+    //console.log(query);
+
+
+    //this.props.history.push('/ship');
+    // ship page ruu medeelel damjuulah
+
+    this.props.history.push({
+      pathname: "/ship",
+      search: params.join('&')
+    });
+
+
+    this.closeConfirmModal();
+  };
 
   showConfirmModal = () => {
     this.setState({ confirmOrder: true });
@@ -97,6 +97,10 @@ class BurgerBuilder extends Component {
       disabledIngredients[key] = disabledIngredients[key] <= 0;
     }
 
+    //console.log(this.props);
+    //console.log(this.props);
+
+
     return (
       <div>
         <Modal
@@ -112,7 +116,7 @@ class BurgerBuilder extends Component {
             ingredients={this.state.ingredients}
           />
         </Modal>
-        <Burger orts={this.state.ingredients} />
+        <Burger choose={this.props.choose} orts={this.state.ingredients} />
         <BuildControls
           showConfirmModal={this.showConfirmModal}
           ingredientsNames={INGREDIENT_NAMES}
@@ -127,4 +131,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default BurgerPage;
