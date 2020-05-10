@@ -13,13 +13,12 @@ const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
 const reducer = (state = initialState, action) => {
   console.log("reducerees", action);
   if (action.type === "ADD_INGREDIENT") {
-    console.log(action.nemehOrts);
     return {
       ingredients: {
         ...state.ingredients,
-        [action.nemehOrts]: state.ingredients[action.nemehOrts] + 1
+        [action.ortsNer]: state.ingredients[action.ortsNer] + 1
       },
-      totalPrice: state.totalPrice + INGREDIENT_PRICES[action.nemehOrts]
+      totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ortsNer]
     };
   } else if (action.type === "REMOVE_INGREDIENT") {
 

@@ -4,8 +4,8 @@ import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
-import axios from "../../axios-orders";
 import Spinner from "../../components/General/Spinner";
+import * as actions from '../../redux/actions/burgerAction';
 
 const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
 const INGREDIENT_NAMES = {
@@ -116,20 +116,20 @@ class BurgerPage extends Component {
   }
 }
 
-const a = state => {
+const mapStateToProps = state => {
   return {
     burgeriinOrts: state.ingredients,
     niitUne: state.totalPrice
   };
 };
-
-const b = dispatch => {
+// dispatch aar orj irj bga action iig props ruu damjuulah 
+const mapDispatchToProps = dispatch => {
   return {
     burgertOrtsNem: ortsNer =>
-      dispatch({ type: "ADD_INGREDIENT", nemehOrts: ortsNer }),
+      dispatch(actions.addIngredient(ortsNer)),
     burgereesOrtsHas: ortsNer =>
-      dispatch({ type: "REMOVE_INGREDIENT", ortsNer })
+      dispatch(actions.removeIngredient(ortsNer))
   };
 };
 
-export default connect(a, b)(BurgerPage);
+export default connect(mapStateToProps, mapDispatchToProps)(BurgerPage);
