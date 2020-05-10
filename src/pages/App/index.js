@@ -11,7 +11,6 @@ import { ShippingPage } from "../ShippingPage";
 class App extends Component {
   state = {
     showSidebar: false,
-    favorite: 'N/A'
   };
 
   toggleSideBar = () => {
@@ -20,11 +19,6 @@ class App extends Component {
     });
   };
 
-  choose = (orts) => {
-    this.setState({
-      favorite: orts
-    })
-  }
 
   render() {
     return (
@@ -37,13 +31,11 @@ class App extends Component {
         />
 
         <main className={css.Content}>
-          <p>Choose orts: {this.state.favorite}</p>
           <Switch>
             <Route path="/orders" component={OrderPage} />
             <Route path="/ship" component={ShippingPage} />
             <Route
-              path='/'
-              render={(props) => <BurgerPage choose={this.choose} />}
+              path='/' component={BurgerPage }
             />
             {/* <Route path="/" component={BurgerPage} /> */}
           </Switch>

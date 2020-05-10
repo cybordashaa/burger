@@ -10,7 +10,7 @@ const Burger = props => {
   let content = [];
   items.map(el => {
     for (let i = 0; i < el[1]; i++)
-      content.push(<BurgerIngredient choose={props.choose} key={`${el[0]}${i + 1}`} type={el[0]} />);
+      content.push(<BurgerIngredient  key={`${el[0]}${i + 1}`} type={el[0]} />);
   });
 
   if (content.length === 0)
