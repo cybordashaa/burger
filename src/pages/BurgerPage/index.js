@@ -12,18 +12,7 @@ class BurgerPage extends Component {
   };
 
   continueOrder = () => {
-    const params = [];
-
-    for (let orts in this.props.burgeriinOrts) {
-      params.push(orts + "=" + this.props.burgeriinOrts[orts]);
-    }
-
-    params.push("dun=" + this.props.niitUne);
-
-    this.props.history.push({
-      pathname: "/ship",
-      search: params.join("&")
-    });
+    this.props.history.push("/ship");
 
     this.closeConfirmModal();
   };
