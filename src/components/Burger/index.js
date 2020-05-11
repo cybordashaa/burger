@@ -30,7 +30,7 @@ const Burger = props => {
 
 const mapStateToProps = state => {
   return {
-    orts: state.ingredients
+    orts: state.burgerReducer.ingredients
   }
 }
 export default connect(mapStateToProps)(withRouter(Burger));
