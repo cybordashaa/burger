@@ -13,7 +13,6 @@ class ContactData extends React.Component {
         name: null,
         city: null,
         street: null,
-        loading: false
     };
 
     changeName = (e) => {
@@ -47,13 +46,20 @@ class ContactData extends React.Component {
 
         this.props.saveOrderAction(newOrder);
     }
-
+    componentDidUpdate() {
+        if (this.props.newOrderStatus.finished && !this.props.newOrderStatus.error) {
+            this.props.history.replace("/orders");
+        }
+    }
     render() {
 
         return (
             <div className={css.ContactData}>
                 Une: {this.props.price}
-                {this.state.loading ? <Spinner /> : (<div>
+                <div>
+                    {this.props.newOrderStatus.error && `захиалах явцад алдаа гарлаа: ${this.props.newOrderStatus.error}`}
+                </div>
+                {this.props.newOrderStatus.saving ? <Spinner /> : (<div>
                     <input onChange={this.changeName} type="text" name="name" placeholder="Таны нэр" />
                     <input onChange={this.changeStreet} type="text" name="street" placeholder="Таны гэрийн хаяг" />
                     <input onChange={this.changeCity} type="text" name="city" placeholder="Таны хот" />
@@ -68,6 +74,7 @@ const mapStateToProps = state => {
     return {
         price: state.burgerReducer.totalPrice,
         ingredients: state.burgerReducer.ingredients,
+        newOrderStatus: state.orderReducer.newOrder
     }
 }
 

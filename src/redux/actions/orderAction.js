@@ -60,14 +60,16 @@ export const saveOrderStart = () => {
     }
 }
 
-export const saveOrderSuccess = () => {
+export const saveOrderSuccess = savedOrder => {
     return {
-        type: "SAVE_ORDER_SUCCESS"
+        type: "SAVE_ORDER_SUCCESS",
+        savedOrder
     }
 }
 
 export const saveOrderError = error => {
     return {
-        type: "SAVE_ORDER_ERROR"
+        type: "SAVE_ORDER_ERROR",
+        error
     }
 }
