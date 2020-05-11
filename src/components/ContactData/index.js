@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import css from './style.module.css'
 import Button from '../General/Button';
-import axios from '../../axios-orders';
 import Spinner from '../General/Spinner';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../redux/actions/orderAction';
