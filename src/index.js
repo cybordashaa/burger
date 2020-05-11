@@ -4,6 +4,7 @@ import './index.css';
 import App from './pages/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import thunk from 'redux-thunk';
 
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -29,7 +30,12 @@ const reducers = combineReducers({
   burgerReducer,
   orderReducer
 });
-const store = createStore(reducers, composeEnhancers(applyMiddleware(logger)));
+
+const middlewares = [
+  thunk,
+  logger
+]
+const store = createStore(reducers, composeEnhancers(applyMiddleware(...middlewares)));
 
 ReactDOM.render(
   <React.StrictMode>
