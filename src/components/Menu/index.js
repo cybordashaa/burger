@@ -6,14 +6,14 @@ import MenuItem from "../MenuItem";
 const Menu = props => (
   <div>
     <ul className={css.Menu}>
-      <MenuItem exact link="/">
+      {props.userId ? (<Fragment><MenuItem exact link="/">
         ШИНЭ ЗАХИАЛГА
       </MenuItem>
-      {props.userId ? (<MenuItem link="/logout">ГАРАХ</MenuItem>) : (<Fragment><MenuItem link="/login">НЭВТРЭХ</MenuItem>
-        <MenuItem link="/signUp">Бүртгүүлэх</MenuItem></Fragment>)}
+        <MenuItem link="/logout">ГАРАХ</MenuItem> <MenuItem link="/orders">ЗАХИАЛГУУД</MenuItem></Fragment>) : (<Fragment><MenuItem link="/login">НЭВТРЭХ</MenuItem>
+          <MenuItem link="/signUp">Бүртгүүлэх</MenuItem></Fragment>)}
 
 
-      <MenuItem link="/orders">ЗАХИАЛГУУД</MenuItem>
+
     </ul>
   </div>
 );

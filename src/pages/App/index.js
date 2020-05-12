@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { Redirect } from 'react-router-dom';
 import css from "./style.module.css";
 import { connect } from 'react-redux';
 import Toolbar from "../../components/ToolBar";
@@ -35,18 +36,21 @@ class App extends Component {
 
         <main className={css.Content}>
           UserId : {this.props.userId}
-
-          <Switch>
+          {this.props.userId ? (<Fragment>
+            <Switch>
+              <Route path="/logout" component={Logout} />
+              <Route path="/orders" component={OrderPage} />
+              <Route path="/ship" component={ShippingPage} />
+              <Route
+                path='/' component={BurgerPage}
+              /></Switch>
+          </Fragment>) : (<Fragment><Switch>
             <Route path="/signUp" component={Signup} />
             <Route path="/login" component={Login} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/orders" component={OrderPage} />
-            <Route path="/ship" component={ShippingPage} />
-            <Route
-              path='/' component={BurgerPage}
-            />
+            <Redirect to="/login" />
             {/* <Route path="/" component={BurgerPage} /> */}
-          </Switch>
+          </Switch></Fragment>)}
+
         </main>
       </div>
     );

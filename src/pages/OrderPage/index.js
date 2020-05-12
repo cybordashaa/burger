@@ -8,7 +8,7 @@ class OrderPage extends React.Component {
 
 
     componentDidMount() {
-        this.props.loadOrders();
+        this.props.loadOrders(this.props.userId);
         // this.setState({
         //     loading: true
         // });
@@ -39,13 +39,15 @@ class OrderPage extends React.Component {
 const mapStateToProps = state => {
     return {
         orders: state.orderReducer.orders,
-        loading: state.orderReducer.loading
+        loading: state.orderReducer.loading,
+        userId: state.signupReducer.userId,
+        //token: state.signupReducer.token
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadOrders: () => dispatch(actions.loadOrders())
+        loadOrders: (userId) => dispatch(actions.loadOrders(userId))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(OrderPage);

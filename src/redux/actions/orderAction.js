@@ -1,13 +1,14 @@
 import axios from '../../axios-orders';
 /// thunk d zoruilsan tusgai dispatch action
-export const loadOrders = () => {
-    return function (dispatch) {
+export const loadOrders = (userId) => {
+    return function (dispatch, getState) {
         // zahialga tatj ehllee gedgiig medne
 
         // eniig huleej awaad spinner ajillaj ehlene
         dispatch(loadOrdersStart());
+        const token = getState().signupReducer.token;
 
-        axios.get('/orders.json').then(response => {
+        axios.get(`orders.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`).then(response => {
             const loadedOrders = Object.entries(response.data).reverse();
 
             dispatch(loadOrdersSuccess(loadedOrders));
@@ -40,12 +41,13 @@ export const loadOrdersSuccess = (loadedOrders) => {
 
 export const saveOrder = (newOrder) => {
 
-    return function (dispatch) {
+    return function (dispatch, getState) {
         // spinner show
         dispatch(saveOrderStart());
 
+        const token = getState().signupReducer.token;
         // firebase save
-        axios.post('/orders.json', newOrder).then(response => {
+        axios.post(`/orders.json?auth=${token}`, newOrder).then(response => {
             dispatch(saveOrderSuccess(response))
         }).catch(error => {
             dispatch(saveOrderError(error))

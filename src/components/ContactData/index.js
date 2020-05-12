@@ -33,6 +33,7 @@ class ContactData extends React.Component {
     }
     saveOrder = (props) => {
         const newOrder = {
+            userId: this.props.userId,
             orts: this.props.ingredients,
             dun: this.props.price,
             hayag: {
@@ -73,7 +74,8 @@ const mapStateToProps = state => {
     return {
         price: state.burgerReducer.totalPrice,
         ingredients: state.burgerReducer.ingredients,
-        newOrderStatus: state.orderReducer.newOrder
+        newOrderStatus: state.orderReducer.newOrder,
+        userId: state.signupReducer.userId
     }
 }
 
