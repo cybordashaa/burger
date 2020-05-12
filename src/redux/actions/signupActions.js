@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { loginUserSuccess } from './loginAction';
 export const signupUser = (email, password) => {
   return function (dispatch) {
     dispatch(signupUserStart());
@@ -54,7 +54,37 @@ export const signupUserError = error => {
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("expireDate");
   return {
     type: 'LOGOUT'
+  }
+}
+
+export const autoLoginAfterMillisec = (ms) => {
+  return function (dispatch) {
+    // token shinechleed login hiih
+    // https://securetoken.googleapis.com/v1/token?key=[API_KEY]
+    // axios
+    //   .post(
+    //     "https://securetoken.googleapis.com/v1/token?key=AIzaSyCEmDZW6k2XJlQritKoYeJG14ExYa1rRSM",
+    //     {
+    //       grant_type: "refresh_token",
+    //       refresh_token: localStorage.getItem('refresh_token')
+    //     }
+    //   )
+    //   .then(result => {
+    //     const token = result.data.id_token;
+    //     const userId = result.data.user_id;
+    //     dispatch(loginUserSuccess(token, userId));
+
+    //   })
+    //   .catch(err => {
+    //     dispatch(signupUserError(err));
+    //   });
+
+    setTimeout(() => {
+      dispatch(logout())
+    }, ms)
   }
 }

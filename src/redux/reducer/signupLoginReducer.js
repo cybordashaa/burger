@@ -5,7 +5,7 @@ const initialState = {
   firebaseError: null,
   firebaseErrorCode: null,
   token: null,
-  userId: null
+  userId: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,7 +41,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         logginIn: false,
         token: action.token,
-        userId: action.userId
+        userId: action.userId,
       }
     case "LOGIN_USER_ERROR":
       return {

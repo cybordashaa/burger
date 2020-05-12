@@ -12,6 +12,7 @@ import Login from "../Login";
 import Signup from "../signUpPage";
 import Logout from "../../components/logout";
 import * as actions from '../../redux/actions/loginAction';
+import * as logout from '../../redux/actions/signupActions';
 
 class App extends Component {
   state = {
@@ -27,9 +28,22 @@ class App extends Component {
   componentDidMount = () => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    const expireDate = new Date(localStorage.getItem('expireDate'));
+    const refreshTken = localStorage.getItem('refreshToken');
     if (token) {
+      if (expireDate > new Date()) {
+        // token time duusaagv ued, login hiine
+        this.props.autoLogin(token, userId);
+        // token huchingui bolohod uldej baigaa hugatsaag tootsoolj 
+        // ter hugatsaanii daraa automataar lgout hiine 
+        this.props.autoLoginAfterMillisec(expireDate.getTime() - new Date().getTime())
+      } else {
 
-      this.props.autoLogin(token, userId);
+        // token time duussan ued lgout hiine
+        this.props.logout();
+
+      }
+
 
     }
 
@@ -75,7 +89,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    autoLogin: (token, userId) => dispatch(actions.loginUserSuccess(token, userId))
+    autoLogin: (token, userId) => dispatch(actions.loginUserSuccess(token, userId)),
+    logout: () => dispatch(logout.logout()),
+    autoLoginAfterMillisec: () => dispatch(logout.autoLoginAfterMillisec())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
