@@ -46,6 +46,8 @@ export const signupUserError = error => {
 
 
 export const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
   return {
     type: 'LOGOUT'
   }

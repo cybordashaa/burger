@@ -11,6 +11,7 @@ import ShippingPage from "../ShippingPage";
 import Login from "../Login";
 import Signup from "../signUpPage";
 import Logout from "../../components/logout";
+import * as actions from '../../redux/actions/loginAction';
 
 class App extends Component {
   state = {
@@ -23,7 +24,16 @@ class App extends Component {
     });
   };
 
+  componentDidMount = () => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    if (token) {
 
+      this.props.autoLogin(token, userId);
+
+    }
+
+  }
   render() {
     return (
       <div>
@@ -62,4 +72,10 @@ const mapStateToProps = state => {
 
   }
 }
-export default connect(mapStateToProps)(App);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    autoLogin: (token, userId) => dispatch(actions.loginUserSuccess(token, userId))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
