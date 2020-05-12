@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const signupUser = (email, password) => {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(signupUserStart());
 
     const data = {
@@ -43,3 +43,10 @@ export const signupUserError = error => {
     error
   };
 };
+
+
+export const logout = () => {
+  return {
+    type: 'LOGOUT'
+  }
+}
