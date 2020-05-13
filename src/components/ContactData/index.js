@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import css from './style.module.css'
 import Button from '../General/Button';
@@ -6,68 +6,68 @@ import Spinner from '../General/Spinner';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../redux/actions/orderAction';
 
-class ContactData extends React.Component {
+const ContactData = props => {
 
-    state = {
-        name: null,
-        city: null,
-        street: null,
+    const [name, setName] = useState();
+    const [city, setCity] = useState();
+    const [street, setStreet] = useState();
+
+    // componentDidUpdate() {
+    //     if (this.props.newOrderStatus.finished && !this.props.newOrderStatus.error) {
+    //         this.props.history.replace("/orders");
+    //     }
+    // }
+
+    useEffect(() => {
+        if (props.newOrderStatus.finished && !this.props.newOrderStatus.error) {
+            props.history.replace("/orders");
+        }
+
+    });
+
+    const changeName = (e) => {
+        setName(e.target.value);
     };
 
-    changeName = (e) => {
-        this.setState({
-            name: e.target.value
-        });
+    const changeCity = (e) => {
+        setCity(e.target.value);
     };
 
-    changeCity = (e) => {
-        this.setState({
-            city: e.target.value
-        });
-    };
-
-    changeStreet = (e) => {
-        this.setState({
-            street: e.target.value
-        });
+    const changeStreet = (e) => {
+        setStreet(e.target.value);
     }
-    saveOrder = (props) => {
+    const saveOrder = (props) => {
         const newOrder = {
-            userId: this.props.userId,
-            orts: this.props.ingredients,
-            dun: this.props.price,
+            userId: props.userId,
+            orts: props.ingredients,
+            dun: props.price,
             hayag: {
-                name: this.state.name,
-                city: this.state.city,
-                street: this.state.street
+                name,
+                city,
+                street
             }
 
         };
 
-        this.props.saveOrderAction(newOrder);
+        props.saveOrderAction(newOrder);
     }
-    componentDidUpdate() {
-        if (this.props.newOrderStatus.finished && !this.props.newOrderStatus.error) {
-            this.props.history.replace("/orders");
-        }
-    }
-    render() {
 
-        return (
-            <div className={css.ContactData}>
-                Une: {this.props.price}
-                <div>
-                    {this.props.newOrderStatus.error && `захиалах явцад алдаа гарлаа: ${this.props.newOrderStatus.error}`}
-                </div>
-                {this.props.newOrderStatus.saving ? <Spinner /> : (<div>
-                    <input onChange={this.changeName} type="text" name="name" placeholder="Таны нэр" />
-                    <input onChange={this.changeStreet} type="text" name="street" placeholder="Таны гэрийн хаяг" />
-                    <input onChange={this.changeCity} type="text" name="city" placeholder="Таны хот" />
-                    <Button text="Илгээх" btnType="Success" daragdsan={this.saveOrder} />
-                </div>)}
+
+    return (
+        <div className={css.ContactData}>
+            Une: {props.price}
+            <div>
+                {props.newOrderStatus.error && `захиалах явцад алдаа гарлаа: ${props.newOrderStatus.error}`}
             </div>
-        )
-    }
+            {props.newOrderStatus.saving ? <Spinner /> : (<div>
+                <input onChange={changeName} type="text" name="name" placeholder="Таны нэр" />
+                <input onChange={changeStreet} type="text" name="street" placeholder="Таны гэрийн хаяг" />
+                <input onChange={changeCity} type="text" name="city" placeholder="Таны хот" />
+                <Button text="Илгээх" btnType="Success" daragdsan={saveOrder} />
+            </div>)}
+        </div>
+    )
+
 }
 
 const mapStateToProps = state => {
