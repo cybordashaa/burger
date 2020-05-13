@@ -6,36 +6,34 @@ import css from './style.module.css';
 import { Route } from 'react-router-dom';
 import ContactData from '../../components/ContactData';
 
-class ShippingPage extends React.Component {
+const ShippingPage = props => {
 
-
-
-    goBack = () => {
-        this.props.history.goBack();
+    const goBack = () => {
+        props.history.goBack();
     }
-    showContactData = () => {
-        // this.props.history.push("/ship/contact");
-        this.props.history.replace("/ship/contact");
+    const showContactData = () => {
+        // props.history.push("/ship/contact");
+        props.history.replace("/ship/contact");
     }
-    render() {
-        //console.log(this.props);
 
-        return <div className={css.ShippingPage}>
-            <strong><p style={{ fontSize: "24px" }}>Таны захиалга</p></strong>
-            <strong><p style={{ fontSize: "24px" }}>Дүн: {this.props.price}</p></strong>
-            <Burger />
-            <Button daragdsan={this.goBack} btnType="Danger" text="Захиалгийг цуцлах" />
-            <Button daragdsan={this.showContactData} btnType="Success" text="Хүргэлтийн мэдээлэл оруулах" />
-            <Route
-                path='/ship/contact'
-                render={(props) => <ContactData />}
-            />
+    //console.log(props);
 
-            {/* <Route path="/ship/contact" render={() => (
-                <ShippingPage ingredients={this.state.ingredients} price={this.state.price} />
+    return <div className={css.ShippingPage}>
+        <strong><p style={{ fontSize: "24px" }}>Таны захиалга</p></strong>
+        <strong><p style={{ fontSize: "24px" }}>Дүн: {props.price}</p></strong>
+        <Burger />
+        <Button daragdsan={goBack} btnType="Danger" text="Захиалгийг цуцлах" />
+        <Button daragdsan={showContactData} btnType="Success" text="Хүргэлтийн мэдээлэл оруулах" />
+        <Route
+            path='/ship/contact'
+            render={(props) => <ContactData />}
+        />
+
+        {/* <Route path="/ship/contact" render={() => (
+                <ShippingPage ingredients={state.ingredients} price={state.price} />
             )} /> */}
-        </div>
-    }
+    </div>
+
 }
 
 const mapStateToProps = state => {

@@ -8,21 +8,30 @@ import { Redirect } from 'react-router-dom';
 
 const Login = (props) => {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    const [form, setForm] = useState({
+        email: "",
+        password: ""
+    });
 
     const login = () => {
 
-        props.login(email, password);
+        props.login(form.email, form.password);
     }
     const changeEmail = (e) => {
 
-        setEmail(e.target.value);
-    }
+        const newEmail = e.target.value;
+        setForm((formBefore) => ({
+            email: newEmail, password: formBefore.password
+        }));
+    };
 
     const changePassword = (e) => {
-
-        setPassword(e.target.value);
+        const newPassword = e.target.value;
+        setForm((formBefore) => ({
+            email: formBefore.email, password: newPassword
+        }))
     }
 
     return (
