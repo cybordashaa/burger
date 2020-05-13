@@ -1,58 +1,57 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
-import Spinner from "../../components/General/Spinner";
 
 
-class BurgerPage extends Component {
-  state = {
-    confirmOrder: false
+const BurgerPage = props => {
+
+  // useState d 2 utga butsaadag ter ni massive baidg
+  const [confirmOrder, setConfirmOrder] = useState(false);
+  // val[0]// jinhen ugugdul
+  // [a, b] masiive zadalj awah 
+  // val[1] ene ugugdliig uurchluh function bdg
+
+
+  const continueOrder = () => {
+    props.history.push("/ship");
+
+    closeConfirmModal();
   };
 
-  continueOrder = () => {
-    this.props.history.push("/ship");
-
-    this.closeConfirmModal();
+  const showConfirmModal = () => {
+    setConfirmOrder(true);
   };
 
-  showConfirmModal = () => {
-    this.setState({ confirmOrder: true });
-  };
-
-  closeConfirmModal = () => {
-    this.setState({ confirmOrder: false });
+  const closeConfirmModal = () => {
+    setConfirmOrder(false);
   };
 
 
-  render() {
 
-    console.log("hey", this.props);
 
-    return (
-      <div>
-        <Modal
-          closeConfirmModal={this.closeConfirmModal}
-          show={this.state.confirmOrder}
-        >
-          {this.state.loading ? (
-            <Spinner />
-          ) : (
-              <OrderSummary
-                onCancel={this.closeConfirmModal}
-                onContinue={this.continueOrder}
-              />
-            )}
-        </Modal>
+  return (
+    <div>
+      <Modal
+        closeConfirmModal={closeConfirmModal}
+        show={confirmOrder}
+      >
 
-        <Burger />
-        <BuildControls
-          showConfirmModal={this.showConfirmModal}
+        <OrderSummary
+          onCancel={closeConfirmModal}
+          onContinue={continueOrder}
         />
-      </div>
-    );
-  }
+
+      </Modal>
+
+      <Burger />
+      <BuildControls
+        showConfirmModal={showConfirmModal}
+      />
+    </div>
+  );
+
 }
 
 
