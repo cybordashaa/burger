@@ -10,6 +10,7 @@ import Login from "../Login";
 import Logout from "../../components/logout";
 import * as actions from '../../redux/actions/loginAction';
 import * as logout from '../../redux/actions/signupActions';
+import BurgerContext from '../../context/BurgerContext';
 
 
 // import BurgerPage from "../BurgerPage";
@@ -60,10 +61,11 @@ const App = props => {
     <div>
       <Toolbar toggleSideBar={toggleSideBar} />
 
-      <SideBar
-        showSidebar={showSidebar}
-        toggleSideBar={toggleSideBar}
-      />
+      <BurgerContext.Provider value={showSidebar}>
+        <SideBar
+          toggleSideBar={toggleSideBar}
+        /></BurgerContext.Provider>
+
 
       <main className={css.Content}>
         <Suspense fallback={<div>Loading ....</div>}>
@@ -73,9 +75,18 @@ const App = props => {
               <Route path="/logout" component={Logout} />
               <Route path="/orders" component={OrderPage} />
               <Route path="/ship" component={ShippingPage} />
-              <Route
+              {/* <Route
                 path='/' component={BurgerPage}
-              /></Switch>
+              /> */}
+              <Route
+                path='/'
+              >
+                <BurgerContext.Provider value={"" + showSidebar}>
+                  <BurgerPage />
+                </BurgerContext.Provider>
+
+              </Route>
+            </Switch>
           </Fragment>) : (<Fragment><Switch>
             <Route path="/signUp" component={Signup} />
             <Route path="/login" component={Login} />

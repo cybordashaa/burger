@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import css from "./style.module.css";
 import Logo from "../Logo";
 import Menu from "../Menu";
 import Shadow from "../General/Shadow";
+import BurgerContext from "../../context/BurgerContext";
 
 const SideBar = props => {
   let classes = [css.SideBar, css.Close];
-
-  if (props.showSidebar) {
+  const appData = useContext(BurgerContext);
+  if (appData) {
     classes = [css.SideBar, css.Open];
   }
 
   return (
     <div>
-      <Shadow show={props.showSidebar} darahad={props.toggleSideBar} />
+      <Shadow show={appData} darahad={props.toggleSideBar} />
 
       <div onClick={props.toggleSideBar} className={classes.join(" ")}>
         <div className={css.Logo}>
