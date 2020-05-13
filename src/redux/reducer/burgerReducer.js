@@ -44,6 +44,10 @@ const reducer = (state = initialState, action) => {
 
     }
   }
+  else if (action.type === 'ORDER_CLEAR') {
+    return initialState;
+
+  }
   return state;
 };
 

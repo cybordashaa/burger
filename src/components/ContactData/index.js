@@ -15,7 +15,15 @@ const ContactData = props => {
         if (props.newOrderStatus.finished && !props.newOrderStatus.error) {
             props.history.replace("/orders");
         }
-    });
+        //clear function
+        return () => {
+            // Захиалгийг буцаагаад хоосолно. Дарааачийн захиалгад бэлтгэнэ
+            console.log('order clearing ...');
+
+            props.clearOrder();
+
+        }
+    }, [props.newOrderStatus.finished]);
 
     const changeName = e => {
         setName(e.target.value);
@@ -91,7 +99,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        saveOrderAction: newOrder => dispatch(actions.saveOrder(newOrder))
+        saveOrderAction: newOrder => dispatch(actions.saveOrder(newOrder)),
+        clearOrder: () => dispatch(actions.clearOrder())
     };
 };
 

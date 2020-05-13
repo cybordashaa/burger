@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../components/General/Button';
 import css from './style.module.css';
 import * as actions from '../../redux/actions/loginAction';
@@ -14,6 +14,16 @@ const Login = (props) => {
         email: "",
         password: ""
     });
+
+    // useEffect(() => {
+    //     console.log('login effect');
+    //     return () => {
+
+    //         console.log('login clear...');
+
+    //     }
+
+    // }, [form.password]);
 
     const login = () => {
 
