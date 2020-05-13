@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/General/Button";
 import css from "./style.module.css";
 import * as actions from "../../redux/actions/signupActions";
@@ -14,17 +14,19 @@ const Signup = props => {
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
 
-  const changeEmail = e => {
-    setEmail(e.target.value);
-  };
 
-  const changePassword1 = e => {
-    setPassword1(e.target.value);
-  };
+  //   setEmail(e.target.value);
+  // };
 
-  const changePassword2 = e => {
-    setPassword2(e.target.value);
-  };
+  // const changePassword1 = e => {
+  //   setPassword1(e.target.value);
+  // };
+
+  // const changePassword2 = e => {
+  //   setPassword2(e.target.value);
+  // };
+
+
 
   const signup = () => {
     if (password1 === password2) {
@@ -41,17 +43,17 @@ const Signup = props => {
       <h1>Бүртгэлийн форм</h1>
       <div>Та өөрийн мэдээллээ оруулна уу</div>
       <input
-        onChange={changeEmail}
+        onChange={e => setEmail(e.target.value)}
         type="text"
         placeholder="Имэйл хаяг"
       />
       <input
-        onChange={changePassword1}
+        onChange={e => setPassword1(e.target.value)}
         type="password"
         placeholder="Нууц үгээ оруулна уу"
       />
       <input
-        onChange={changePassword2}
+        onChange={e => setPassword2(e.target.value)}
         type="password"
         placeholder="Нууц үгээ давтан оруулна уу"
       />
