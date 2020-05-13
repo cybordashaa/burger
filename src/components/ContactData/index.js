@@ -19,8 +19,9 @@ const ContactData = props => {
         return () => {
             // Захиалгийг буцаагаад хоосолно. Дарааачийн захиалгад бэлтгэнэ
             console.log('order clearing ...');
-
-            props.clearOrder();
+            if (props.newOrderStatus.finished === true) {
+                props.clearOrder();
+            }
 
         }
     }, [props.newOrderStatus.finished]);
