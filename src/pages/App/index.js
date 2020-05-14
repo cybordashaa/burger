@@ -68,26 +68,29 @@ const App = props => {
 
 
       <main className={css.Content}>
-        <Suspense fallback={<div>Loading ....</div>}>
-          UserId : {props.userId}
-          {props.userId ? (<Fragment>
-            <Switch>
-              <Route path="/logout" component={Logout} />
-              <Route path="/orders" component={OrderPage} />
-              <BurgerStore>
+        <BurgerStore>
+          <Suspense fallback={<div>Loading ....</div>}>
+            UserId : {props.userId}
+            {props.userId ? (<Fragment>
+              <Switch>
+                <Route path="/logout" component={Logout} />
+                <Route path="/orders" component={OrderPage} />
+
                 <Route path="/ship" component={ShippingPage} />
                 <Route
                   path='/' component={BurgerPage}
                 />
-              </BurgerStore>
-            </Switch>
-          </Fragment>) : (<Fragment><Switch>
-            <Route path="/signUp" component={Signup} />
-            <Route path="/login" component={Login} />
-            <Redirect to="/login" />
-            {/* <Route path="/" component={BurgerPage} /> */}
-          </Switch></Fragment>)}
-        </Suspense>
+
+              </Switch>
+            </Fragment>) : (<Fragment><Switch>
+              <Route path="/signUp" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Redirect to="/login" />
+              {/* <Route path="/" component={BurgerPage} /> */}
+            </Switch></Fragment>)}
+          </Suspense>
+        </BurgerStore>
+
 
       </main>
     </div>

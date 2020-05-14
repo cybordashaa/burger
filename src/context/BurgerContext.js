@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from '../axios-orders';
 
 const BurgerContext = React.createContext();
 const initialState = {
@@ -15,13 +16,40 @@ const initialState = {
         cheese: "Бяслаг",
         meat: "Үхрийн мах",
         salad: "Салад"
+    },
+
+    // order save
+    newOrder: {
+        saving: false,
+        finished: false,
+        error: null
     }
 };
 const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
 
 export const BurgerStore = props => {
+
+
     const [burger, setBurger] = useState(initialState);
 
+    const saveBurger = (newOrder) => {
+        //spinner show
+        setBurger({ ...burger, saving: true });
+        // const token = getState().signupReducer.token;
+        // firebase save
+        //`/orders.json?auth=${token}`
+        axios.post('/orders.json', newOrder).then(response => {
+            setBurger({ ...burger, saving: false, finished: true });
+        }).catch(error => {
+            setBurger({ ...burger, saving: false, finished: true, error });
+
+        });
+
+    }
+
+    const clearOrder = () => {
+        setBurger(initialState);
+    }
     const addIngredient = (orts) => {
         setBurger({
             ...burger,
@@ -51,7 +79,16 @@ export const BurgerStore = props => {
     };
 
     return (
-        <BurgerContext.Provider value={{ burger, addIngredient, removeIngredient }}>{props.children}</BurgerContext.Provider>
+        <BurgerContext.Provider
+            value={{
+                burger,
+                addIngredient,
+                removeIngredient,
+                saveBurger,
+                clearOrder
+            }}>
+            {props.children}
+        </BurgerContext.Provider>
     )
 
 };
