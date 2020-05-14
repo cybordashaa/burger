@@ -5,7 +5,7 @@ import Toolbar from "../../components/ToolBar";
 import SideBar from "../../components/SideBar";
 import { Route, Switch } from "react-router-dom";
 import ShippingPage from "../ShippingPage";
-import LoginPage from "../LoginPage";
+import LoginPage from "../Login";
 import Logout from "../../components/logout";
 import { BurgerStore } from "../../context/BurgerContext";
 import { OrderStore } from "../../context/OrdersContext";
@@ -36,21 +36,21 @@ const App = (props) => {
     const expireDate = new Date(localStorage.getItem("expireDate"));
     const refreshToken = localStorage.getItem("refreshToken");
 
-    if (token) {
-      if (expireDate > new Date()) {
-        // Hugatsaa n duusaaagui token baina, avtomat login hiine
-        props.autoLogin(token, userId);
+    // if (token) {
+    //   if (expireDate > new Date()) {
+    //     // Hugatsaa n duusaaagui token baina, avtomat login hiine
+    //     props.autoLogin(token, userId);
 
-        // Token huchingui bolohod uldej baigaa hugatsaag tootsoolj
-        // Ter hugatsaanii daraa avtomataar logout hiine
-        props.autoLogoutAfterMillisec(
-          expireDate.getTime() - new Date().getTime()
-        );
-      } else {
-        // Token hugatsaa n duussan bainaa, logout hiine
-        props.logout();
-      }
-    }
+    //     // Token huchingui bolohod uldej baigaa hugatsaag tootsoolj
+    //     // Ter hugatsaanii daraa avtomataar logout hiine
+    //     props.autoLogoutAfterMillisec(
+    //       expireDate.getTime() - new Date().getTime()
+    //     );
+    //   } else {
+    //     // Token hugatsaa n duussan bainaa, logout hiine
+    //     props.logout();
+    //   }
+    // }
   }, []);
 
   return (
@@ -87,11 +87,7 @@ const App = (props) => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     userId: state.signupReducer.userId,
-//   };
-// };
+
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {

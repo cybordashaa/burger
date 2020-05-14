@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '../../components/General/Button';
 import css from './style.module.css';
-import * as actions from '../../redux/actions/loginAction';
-import { connect } from 'react-redux';
 import Spinner from '../../components/General/Spinner';
 import { Redirect } from 'react-router-dom';
+import UserContext from '../../context/UserContext';
 
 const Login = (props) => {
 
     // const [email, setEmail] = useState("");
     // const [password, setPassword] = useState("");
+    const UserCTX = useContext(UserContext);
     const [form, setForm] = useState({
         email: "",
         password: ""
@@ -27,7 +27,7 @@ const Login = (props) => {
 
     const login = () => {
 
-        props.login(form.email, form.password);
+        UserCTX.loginUser(form.email, form.password);
     }
     const changeEmail = (e) => {
 
@@ -46,29 +46,15 @@ const Login = (props) => {
 
     return (
         <div className={css.Login}>
-            {props.userId && <Redirect to="/orders" />}
+            {UserCTX.state.userId && <Redirect to="/orders" />}
             <input onChange={changeEmail} type="text" placeholder="Имэйл хаяг" />
             <input onChange={changePassword} type="text" placeholder="Нууц Үг" />
-            {props.logginIn && <Spinner />}
-            {props.firebaseError && <div style={{ color: 'red' }}>{props.firebaseError} code: {props.firebaseErrorCode}</div>}
+            {UserCTX.state.logginIn && <Spinner />}
+            {UserCTX.state.error && <div style={{ color: 'red' }}>{UserCTX.state.error} code: {UserCTX.state.errorCode}</div>}
             <Button text="Логин" btnType="Success" daragdsan={login} />
         </div>
     );
 
 }
 
-const mapStateToProps = (state) => {
-    return {
-        logginIn: state.signupReducer.logginIn,
-        firebaseError: state.signupReducer.firebaseError,
-        firebaseErrorCode: state.signupReducer.firebaseErrorCode,
-        userId: state.signupReducer.userId
-    }
-}
-const mapDisppatchToProps = dispatch => {
-    return {
-        login: (email, password) => dispatch(actions.loginUser(email, password))
-    }
-}
-
-export default connect(mapStateToProps, mapDisppatchToProps)(Login);
+export default Login;

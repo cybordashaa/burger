@@ -17,8 +17,6 @@ export const OrderStore = (props) => {
     // Энийг хүлээж аваад Spinner ажиллаж эхлэнэ.
     setState({ ...state, loading: true });
 
-    // const token = getState().signupReducer.token;
-
     //`orders.json?&auth=${token}&orderBy="userId"&equalTo="${userId}"`
     axios
       .get(`orders.json`)

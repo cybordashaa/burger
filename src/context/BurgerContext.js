@@ -31,9 +31,6 @@ export const BurgerStore = (props) => {
   const saveBurger = (newOrder) => {
     // Spinner ergelduulne
     setBurger({ ...burger, saving: true });
-
-    // const token = getState().signupReducer.token;
-
     // Firebase ruu hadgalna
     // orders.json?auth=${token}
     axios
