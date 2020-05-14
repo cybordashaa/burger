@@ -9,13 +9,13 @@ import BurgerContext from "../../context/BurgerContext";
 const SideBar = props => {
   let classes = [css.SideBar, css.Close];
   const appData = useContext(BurgerContext);
-  if (appData) {
+  if (props.showSidebar) {
     classes = [css.SideBar, css.Open];
   }
 
   return (
     <div>
-      <Shadow show={appData} darahad={props.toggleSideBar} />
+      <Shadow show={props.showSidebar} darahad={props.toggleSideBar} />
 
       <div onClick={props.toggleSideBar} className={classes.join(" ")}>
         <div className={css.Logo}>

@@ -11,17 +11,17 @@ export const BurgerStore = props => {
     });
 
     const addIngredient = (orts) => {
-        console.log('add ...');
-
+        setIngredients({ ...ingredients, [orts]: ingredients[orts] + 1 });
     }
 
     const removeIngredient = (orts) => {
-        console.log('remove ...');
+        setIngredients({ ...ingredients, [orts]: ingredients[orts] - 1 });
+
 
     };
 
     return (
-        <BurgerContext.Provider value={ingredients, addIngredient, removeIngredient}>{props.children}</BurgerContext.Provider>
+        <BurgerContext.Provider value={{ ingredients, addIngredient, removeIngredient }}>{props.children}</BurgerContext.Provider>
     )
 
 };

@@ -10,7 +10,7 @@ import Login from "../Login";
 import Logout from "../../components/logout";
 import * as actions from '../../redux/actions/loginAction';
 import * as logout from '../../redux/actions/signupActions';
-import BurgerContext from '../../context/BurgerContext';
+import { BurgerStore } from '../../context/BurgerContext';
 
 
 // import BurgerPage from "../BurgerPage";
@@ -61,10 +61,10 @@ const App = props => {
     <div>
       <Toolbar toggleSideBar={toggleSideBar} />
 
-      <BurgerContext.Provider value={showSidebar}>
-        <SideBar
-          toggleSideBar={toggleSideBar}
-        /></BurgerContext.Provider>
+      <SideBar
+        showSidebar={showSidebar}
+        toggleSideBar={toggleSideBar}
+      />
 
 
       <main className={css.Content}>
@@ -74,18 +74,12 @@ const App = props => {
             <Switch>
               <Route path="/logout" component={Logout} />
               <Route path="/orders" component={OrderPage} />
-              <Route path="/ship" component={ShippingPage} />
-              {/* <Route
-                path='/' component={BurgerPage}
-              /> */}
-              <Route
-                path='/'
-              >
-                <BurgerContext.Provider value={"" + showSidebar}>
-                  <BurgerPage />
-                </BurgerContext.Provider>
-
-              </Route>
+              <BurgerStore>
+                <Route path="/ship" component={ShippingPage} />
+                <Route
+                  path='/' component={BurgerPage}
+                />
+              </BurgerStore>
             </Switch>
           </Fragment>) : (<Fragment><Switch>
             <Route path="/signUp" component={Signup} />
