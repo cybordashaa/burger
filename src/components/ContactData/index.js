@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import css from "./style.module.css";
 import Button from "../General/Button";
 import Spinner from "../General/Spinner";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import BurgerContext from "../../context/BurgerContext";
 
 const ContactData = (props) => {
+  const history = useHistory();
   const ctx = useContext(BurgerContext);
   const [name, setName] = useState();
   const [city, setCity] = useState();
@@ -15,7 +16,7 @@ const ContactData = (props) => {
 
   useEffect(() => {
     if (ctx.burger.finished && !ctx.burger.error) {
-      props.history.replace("/orders");
+      history.replace("/orders");
     }
 
     return () => {
@@ -69,30 +70,30 @@ const ContactData = (props) => {
       {ctx.burger.saving ? (
         <Spinner />
       ) : (
-        <div>
-          <input
-            onChange={changeName}
-            type="text"
-            name="name"
-            placeholder="Таны нэр"
-          />
-          <input
-            onChange={changeStreet}
-            type="text"
-            name="street"
-            placeholder="Таны гэрийн хаяг"
-          />
-          <input
-            onChange={changeCity}
-            type="text"
-            name="city"
-            placeholder="Таны хот"
-          />
-          <Button text="ИЛГЭЭХ" btnType="Success" daragdsan={saveOrder} />
-        </div>
-      )}
+          <div>
+            <input
+              onChange={changeName}
+              type="text"
+              name="name"
+              placeholder="Таны нэр"
+            />
+            <input
+              onChange={changeStreet}
+              type="text"
+              name="street"
+              placeholder="Таны гэрийн хаяг"
+            />
+            <input
+              onChange={changeCity}
+              type="text"
+              name="city"
+              placeholder="Таны хот"
+            />
+            <Button text="ИЛГЭЭХ" btnType="Success" daragdsan={saveOrder} />
+          </div>
+        )}
     </div>
   );
 };
 
-export default withRouter(ContactData);
+export default ContactData;
