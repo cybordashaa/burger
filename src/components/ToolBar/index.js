@@ -6,13 +6,13 @@ import Menu from "../Menu";
 import HamburgerMenu from "../../components/HamBurgerMenu";
 
 const Toolbar = props => (
-    <header className={css.Toolbar}>
-        <HamburgerMenu toggleSideBar={props.toggleSideBar} />
-        <Logo />
-        <nav className={css.HideOnMobile}>
-            <Menu />
-        </nav>
-    </header>
+  <header className={css.Toolbar}>
+    <HamburgerMenu toggleSideBar={props.toggleSideBar} />
+    <Logo />
+    <nav className={css.HideOnMobile}>
+      <Menu />
+    </nav>
+  </header>
 );
 
 export default Toolbar;
