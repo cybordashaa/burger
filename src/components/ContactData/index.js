@@ -4,10 +4,12 @@ import Button from "../General/Button";
 import Spinner from "../General/Spinner";
 import { useHistory } from "react-router-dom";
 import BurgerContext from "../../context/BurgerContext";
+import UserContext from "../../context/UserContext";
 
 const ContactData = (props) => {
   const history = useHistory();
   const ctx = useContext(BurgerContext);
+  const userCTX = useContext(UserContext);
   const [name, setName] = useState();
   const [city, setCity] = useState();
   const [street, setStreet] = useState();
@@ -43,7 +45,7 @@ const ContactData = (props) => {
 
   const saveOrder = () => {
     const newOrder = {
-      userId: "props.userId",
+      userId: userCTX.state.userId,
       orts: ctx.burger.ingredients,
       dun: ctx.burger.totalPrice,
       hayag: {
@@ -53,7 +55,7 @@ const ContactData = (props) => {
       },
     };
 
-    ctx.saveBurger(newOrder);
+    ctx.saveBurger(newOrder, userCTX.state.token);
   };
 
   return (
