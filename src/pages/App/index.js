@@ -1,6 +1,5 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useContext } from "react";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 import css from "./style.module.css";
 import Toolbar from "../../components/ToolBar";
 import SideBar from "../../components/SideBar";
@@ -8,10 +7,9 @@ import { Route, Switch } from "react-router-dom";
 import ShippingPage from "../ShippingPage";
 import LoginPage from "../LoginPage";
 import Logout from "../../components/logout";
-import * as actions from "../../redux/actions/loginActions";
-import * as signupActions from "../../redux/actions/signupActions";
 import { BurgerStore } from "../../context/BurgerContext";
 import { OrderStore } from "../../context/OrdersContext";
+import UserContext from '../../context/UserContext';
 
 const BurgerPage = React.lazy(() => {
   return import("../BurgerPage");
@@ -27,7 +25,7 @@ const SignupPage = React.lazy(() => {
 
 const App = (props) => {
   const [showSidebar, setShowSidebar] = useState(false);
-
+  const UserCTX = useContext(UserContext);
   const toggleSideBar = () => {
     setShowSidebar((prevShowSidebar) => !prevShowSidebar);
   };
@@ -64,7 +62,7 @@ const App = (props) => {
       <main className={css.Content}>
         <BurgerStore>
           <Suspense fallback={<div>Түр хүлээнэ үү...</div>}>
-            {props.userId ? (
+            {UserCTX.state.userId ? (
               <Switch>
                 <Route path="/logout" component={Logout} />
                 <Route path="/orders">
@@ -89,20 +87,20 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.signupReducer.userId,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     userId: state.signupReducer.userId,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    autoLogin: (token, userId) =>
-      dispatch(actions.loginUserSuccess(token, userId)),
-    logout: () => dispatch(signupActions.logout()),
-    autoLogoutAfterMillisec: () =>
-      dispatch(signupActions.autoLogoutAfterMillisec()),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     autoLogin: (token, userId) =>
+//       dispatch(actions.loginUserSuccess(token, userId)),
+//     logout: () => dispatch(signupActions.logout()),
+//     autoLogoutAfterMillisec: () =>
+//       dispatch(signupActions.autoLogoutAfterMillisec()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
