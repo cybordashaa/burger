@@ -36,21 +36,21 @@ const App = (props) => {
     const expireDate = new Date(localStorage.getItem("expireDate"));
     const refreshToken = localStorage.getItem("refreshToken");
 
-    // if (token) {
-    //   if (expireDate > new Date()) {
-    //     // Hugatsaa n duusaaagui token baina, avtomat login hiine
-    //     props.autoLogin(token, userId);
+    if (token) {
+      if (expireDate > new Date()) {
+        // Hugatsaa n duusaaagui token baina, avtomat login hiine
+        UserCTX.loginUserSuccess(token, userId, expireDate, refreshToken);
 
-    //     // Token huchingui bolohod uldej baigaa hugatsaag tootsoolj
-    //     // Ter hugatsaanii daraa avtomataar logout hiine
-    //     props.autoLogoutAfterMillisec(
-    //       expireDate.getTime() - new Date().getTime()
-    //     );
-    //   } else {
-    //     // Token hugatsaa n duussan bainaa, logout hiine
-    //     props.logout();
-    //   }
-    // }
+        // Token huchingui bolohod uldej baigaa hugatsaag tootsoolj
+        // Ter hugatsaanii daraa avtomataar logout hiine
+        // props.autoLogoutAfterMillisec(
+        //   expireDate.getTime() - new Date().getTime()
+        // );
+      } else {
+        // Token hugatsaa n duussan bainaa, logout hiine
+        UserCTX.logout();
+      }
+    }
   }, []);
 
   return (
