@@ -28,6 +28,11 @@ const initialState = {
 export const BurgerStore = (props) => {
   const [burger, setBurger] = useState(initialState);
 
+
+  // use Memo 
+  const toggle = () => {
+    setBurger({ ...burger, saving: !burger.saving })
+  }
   const saveBurger = (newOrder, token) => {
     // Spinner ergelduulne
     setBurger({ ...burger, saving: true });
@@ -80,6 +85,7 @@ export const BurgerStore = (props) => {
         removeIngredient,
         saveBurger,
         clearBurger,
+        toggle
       }}
     >
       {props.children}

@@ -57,6 +57,8 @@ const ContactData = (props) => {
 
     ctx.saveBurger(newOrder, userCTX.state.token);
   };
+  console.log('ContactData rendered.... ');
+
 
   return (
     <div className={css.ContactData}>
@@ -71,6 +73,7 @@ const ContactData = (props) => {
       </div>
       {ctx.burger.saving ? (
         <Spinner />
+
       ) : (
           <div>
             <input
@@ -92,9 +95,13 @@ const ContactData = (props) => {
               placeholder="Таны хот"
             />
             <Button text="ИЛГЭЭХ" btnType="Success" daragdsan={saveOrder} />
+
           </div>
+
         )}
+      <Button text="Toggle" btnType="Success" daragdsan={ctx.toggle} />
     </div>
+
   );
 };
 
