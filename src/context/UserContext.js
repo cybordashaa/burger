@@ -19,11 +19,10 @@ export const UserStore = (props) => {
     const [state, setState] = useState(initialState);
 
     const loginUserSuccess = (token, userId, expireDate, refreshToken) => {
-        localStorage.setItem('token', token);
+        localStorage.setItem("token", token);
         localStorage.setItem("userId", userId);
         localStorage.setItem("expireDate", expireDate);
         localStorage.setItem("refreshToken", refreshToken);
-        //localStorage.setItem("refreshToken", refreshToken);
         setState({
             ...state,
             logginIn: false,
@@ -59,7 +58,7 @@ export const UserStore = (props) => {
             const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
             const refreshToken = result.data.refreshToken;
 
-            loginUserSuccess(token, userId, expiresIn, expireDate, refreshToken);
+            loginUserSuccess(token, userId, expireDate, refreshToken);
             //dispatch(actions.autoLoginAfterMillisec(expiresIn * 1000))
 
 
@@ -114,15 +113,41 @@ export const UserStore = (props) => {
                 })
             });
     }
-    //  const autoLogoutAfterMillisec = ms => {
-    //   return function (dispatch) {
 
-    //     // avtomat logout
-    //     setTimeout(() => {
-    //       dispatch(logout());
-    //     }, ms);
-    //   };
-    // };
+    // token hichungv bolohd refresh toke ilgeej token awah function
+    const autoRenewTokenAfterMillisec = ms => {
+
+        axios.post('https://securetoken.googleapis.com/v1/token?key=AIzaSyBivztEBPPk9QA1oFhMGfW06SFoLMeZ1fo',
+            {
+                grant_type: "refresh_token",
+                refresh_token: localStorage.getItem('refreshToken')
+            }
+        ).then((result) => {
+            const token = result.data.id_token;
+            const userId = result.data.user_id;
+            const expiresIn = result.data.expires_in;
+            const expiresDate = new Date(new Date().getTime() + expiresIn * 1000);
+            const refreshToken = result.data.refresh_token;
+            loginUserSuccess(token, userId, expiresDate, refreshToken);
+
+        }).catch((err) => {
+            setState({
+                ...state,
+                logginIn: false,
+                error: err.message,
+                errorCode: err.code,
+                token: null,
+                userId: null
+
+            })
+
+        });
+
+        setTimeout(() => {
+            autoRenewTokenAfterMillisec(3600 * 1000);
+        }, ms)
+
+    }
 
 
 
@@ -137,7 +162,7 @@ export const UserStore = (props) => {
     };
 
     return (
-        <UserContext.Provider value={{ state, signupUser, loginUser, logout, loginUserSuccess }}>
+        <UserContext.Provider value={{ state, signupUser, loginUser, logout, loginUserSuccess, autoRenewTokenAfterMillisec }}>
             {props.children}
         </UserContext.Provider>
     );
